@@ -1,0 +1,1 @@
+{"testTargets/gbpReport.py": {"mi": 71.7303137908428, "rank": "A"}, "testTargets/cmccoin.py": {"error": "'ascii' codec can't decode byte 0xc2 in position 1378: ordinal not in range(128)"}, "testTargets/main.py": {"mi": 72.89654304349204, "rank": "A"}}
