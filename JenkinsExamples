@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('15 13 * * *')
+    }
+    options {
+        skipDefaultCheckout(true)
+        // Keep the 10 most recent builds
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timestamps()
+    }
+    environment {
+      PATH="/users/shared/jenkins/miniconda3/bin:$PATH"
+    }
+
+    stages {
+
+        stage('Manual Check') {
+             input {
+                     message "Should we continue?"
+                    }
+            steps {
+                     echo "Continuing with deployment"
+                   }
+         }
+    }
+    post {
+        always {
+            sh 'conda remove --yes -n ${BUILD_TAG} --all'
+        }
+        success {  
+             echo "build ${BUILD_TAG} succesfull" 
+         }  
+         failure {  
+             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "murchie@gmail.com";  
+         }
+
+
+    }
+}
