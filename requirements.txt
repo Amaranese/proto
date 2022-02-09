@@ -1,0 +1,13 @@
+# packages
+# os
+# json built in 
+# random built in 
+#urllib3==1.22
+#DateTime==4.3
+
+
+
+# Static code metrics
+pylint==1.8.1
+#Radon==2.1.1
+coverage==4.4.2
